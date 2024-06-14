@@ -14,10 +14,10 @@ Express.js 백엔드 ➡️ Lambda 기반 서버리스 백엔드 <br/>
 
 ## Architecture
 
-![](https://file.notion.so/f/f/e9862251-b3e1-4c44-82dd-36627a50b5aa/7629aa91-81d7-4aeb-9663-7858214d79bd/Untitled.png?id=1b7f5823-ed97-48df-bbde-25e929b35e15&table=block&spaceId=e9862251-b3e1-4c44-82dd-36627a50b5aa&expirationTimestamp=1718496000000&signature=_S-8FO0nppzmSMQmy3n8PQC7fIki6pmFgREP9SoNCv0&downloadName=Untitled.png)
+![image](https://github.com/Young-Season/Young_Backend_Serverless/assets/83288181/f67ffedb-6038-4cfc-b4a6-4d32629b04b2)
+
 
 ## Articles @hnnynh
 
-#### [[서버리스] AWS Lambda 백엔드 아키텍처 비교하기](https://velog.io/@hnnynh/%EC%84%9C%EB%B2%84%EB%A6%AC%EC%8A%A4-AWS-Lambda-%EB%B0%B1%EC%97%94%EB%93%9C-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%EB%B9%84%EA%B5%90%ED%95%98%EA%B8%B0)
-
-#### [[서버리스] API Gateway Authorizer](https://velog.io/@hnnynh/API-Gateway-Authorizer)
+**[[서버리스] AWS Lambda 백엔드 아키텍처 비교하기](https://velog.io/@hnnynh/%EC%84%9C%EB%B2%84%EB%A6%AC%EC%8A%A4-AWS-Lambda-%EB%B0%B1%EC%97%94%EB%93%9C-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%EB%B9%84%EA%B5%90%ED%95%98%EA%B8%B0)** <br/>
+**[[서버리스] API Gateway Authorizer](https://velog.io/@hnnynh/API-Gateway-Authorizer)**
