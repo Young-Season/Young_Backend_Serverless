@@ -19,5 +19,5 @@ Express.js 백엔드 ➡️ Lambda 기반 서버리스 백엔드 <br/>
 
 ## Articles @hnnynh
 
-**[[서버리스] AWS Lambda 백엔드 아키텍처 비교하기](https://velog.io/@hnnynh/%EC%84%9C%EB%B2%84%EB%A6%AC%EC%8A%A4-AWS-Lambda-%EB%B0%B1%EC%97%94%EB%93%9C-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%EB%B9%84%EA%B5%90%ED%95%98%EA%B8%B0)** <br/>
-**[[서버리스] API Gateway Authorizer](https://velog.io/@hnnynh/API-Gateway-Authorizer)**
+[![Velog's GitHub stats](https://velog-readme-stats.vercel.app/api?name=hnnynh)](https://velog.io/@hnnynh/%EC%84%9C%EB%B2%84%EB%A6%AC%EC%8A%A4-AWS-Lambda-%EB%B0%B1%EC%97%94%EB%93%9C-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%EB%B9%84%EA%B5%90%ED%95%98%EA%B8%B0)
+[![Velog's GitHub stats](https://velog-readme-stats.vercel.app/api?name=hnnynh)](https://velog.io/@hnnynh/API-Gateway-Authorizer)
