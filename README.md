@@ -1,7 +1,7 @@
 # Young_Backend_Serverless
 
 ⏰2024.05.06 ~ 2024.06.14<br/><br/>
-Express.js 백엔드 ➡️ Lambda 기반 서버리스 백엔드 <br/>
+Node.js 백엔드 ➡️ Lambda 기반 서버리스 백엔드 <br/>
 서버리스를 경험하고 AWS 서비스를 직접 활용하기 위해 시작한 프로젝트입니다. <br/>
 
 ## Details
