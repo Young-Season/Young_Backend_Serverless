@@ -3,9 +3,6 @@
 const mongoose = require("mongoose");
 const MONGO_URI = process.env.MONGO_URI;
 const User = require("./models/user");
-const Description = require("./models/description");
-
-const arrName = ["animal", "emoji", "color", "first", "now"];
 
 let connection = null;
 
@@ -19,6 +16,8 @@ const connectDB = () => {
 module.exports.handler = async (event, context) => {
   const hostId = event.pathParameters.hostId;
   const userId = event.requestContext.authorizer.lambda.userId;
+  let page = event.queryStringParameters.page;
+  const pageSize = 5;
 
   if (hostId != userId)
     return context.done(null, { status: 403, message: "User Not Allowed" });
@@ -32,35 +31,33 @@ module.exports.handler = async (event, context) => {
       return context.done(null, {
         status: 204,
         message: "No Result Yet",
-        data: {
-          image: "000",
-        },
       });
     }
 
-    let firsts = {};
-    arrName.forEach((name, idx) => {
-      const arr = hostUser[name];
-      const first = Math.max(...arr);
-      firsts[name] = arr.indexOf(first);
-    });
+    if (typeof page == "undefined" || page == "" || page == null) page = 1;
+    else page = parseInt(page);
 
-    const image = `${firsts["color"]}${firsts["emoji"]}${firsts["animal"]}`;
-    const descData = await Description.findOne({
-      result: `${firsts["first"]}${firsts["now"]}`,
-    });
+    const guestData = hostUser.friends.map((friend) => ({
+      id: friend._id,
+      name: friend.name,
+    }));
 
-    const result = {
-      image: image,
-      title: descData.title,
-      first: descData.first,
-      now: descData.now,
-    };
+    const startIndex = (page - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+
+    const pageData = guestData.slice(startIndex, endIndex);
+
+    if (pageData.length === 0) {
+      return context.done(null, {
+        status: 204,
+        message: "No results on Page",
+      });
+    }
 
     return context.done(null, {
       status: 200,
-      message: "User Results",
-      data: result,
+      message: "Guest List Result",
+      guests: pageData,
     });
   } catch (err) {
     return context.failed(err);
