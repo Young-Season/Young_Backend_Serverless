@@ -17,7 +17,7 @@ module.exports.handler = async (event, context) => {
   const hostId = event.pathParameters.hostId;
   const userId = event.requestContext.authorizer.lambda.userId;
   let page = event.queryStringParameters.page;
-  const pageSize = 5;
+  const pageSize = 6;
 
   if (hostId != userId)
     return context.done(null, { status: 403, message: "User Not Allowed" });
@@ -51,6 +51,8 @@ module.exports.handler = async (event, context) => {
       return context.done(null, {
         status: 204,
         message: "No results on Page",
+        page: page,
+        total: hostUser.friends.length,
       });
     }
 
@@ -58,6 +60,8 @@ module.exports.handler = async (event, context) => {
       status: 200,
       message: "Guest List Result",
       guests: pageData,
+      page: page,
+      total: hostUser.friends.length,
     });
   } catch (err) {
     return context.failed(err);
