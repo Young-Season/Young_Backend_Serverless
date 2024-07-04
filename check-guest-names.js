@@ -16,15 +16,17 @@ const connectDB = () => {
 };
 
 module.exports.handler = async (event, context) => {
-  const hostId =  event.queryStringParameters.hostId;
-  if(typeof hostId == "undefined" || hostId == "" || hostId == null)
+  
+  const hostId = event.queryStringParameters.hostId;
+  const guestName = event.queryStringParameters.guestName;
+  if(typeof hostId == "undefined" || hostId == "" || hostId == null || typeof guestName == "undefined" || guestName == "" || guestName == null)
     return {
       statusCode: "400",
       body: JSON.stringify({
         "message": "Bad Request",
       })
     };
-
+    
   connectDB();
   
   try{
@@ -36,12 +38,24 @@ module.exports.handler = async (event, context) => {
           "message": "User Not Found",
         })
       };
-      
+
+    const guestNames = hostUser.friends.map((friend) => friend.name);
+    
+    if (guestNames.includes(guestName)) {
+      return {
+        statusCode: "409",
+        body: JSON.stringify({
+          "message": "Nickname Duplicated",
+          "name": guestName,
+        })
+      };
+    } 
+  
     return {
       statusCode: "200",
       body: JSON.stringify({
-        "message": "Host name for Landing Page",
-        "hostName": hostUser.name,
+        "message": "Nickname Available",
+        "name": guestName,
       })
     };
     

@@ -40,10 +40,7 @@ module.exports.handler = async (event, context) => {
       return {
         statusCode: "204",
         body: JSON.stringify({
-          "message" : "No Result Yet", 
-          "data":{
-            "image" : "000"
-          }
+          "message" : "No Result Yet",
         })
       };
 	  
