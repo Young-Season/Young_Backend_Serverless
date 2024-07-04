@@ -1,4 +1,4 @@
-"use strict";
+"use strict"
 
 const mongoose = require("mongoose");
 const MONGO_URI = process.env.MONGO_URI;
@@ -10,29 +10,35 @@ let connection = null;
 
 const connectDB = () => {
   if (connection && mongoose.connection.readyState === 1) return;
-  mongoose.connect(MONGO_URI, {}).then((conn) => {
-    connection = conn;
-  });
+  mongoose.connect(MONGO_URI, { }).then(
+    conn => {
+      connection = conn;
+    }
+  );
 };
 
 module.exports.handler = async (event, context) => {
-  const { hostId, guestName, animal, emoji, color, first, now } = JSON.parse(
-    event.body
-  );
-  if (
-    typeof event.body == "undefined" ||
-    event.body == "" ||
-    event.body == null
-  )
-    return context.done(null, { status: 400, message: "Bad Request" });
+  const { hostId, guestName, animal, emoji, color, first, now } = JSON.parse(event.body);
+  if(typeof event.body == "undefined" || event.body == "" || event.body == null)
+    return {
+      statusCode: "400",
+      body: JSON.stringify({
+        "message": "Bad Request",
+      })
+    };
 
   connectDB();
-
+  
   try {
     const hostUser = await User.findOne({ id: hostId }).populate("friends");
     if (!hostUser)
-      return context.done(null, { status: 404, message: "User Not Found" });
-
+      return {
+        statusCode: "404",
+        body: JSON.stringify({
+          "message": "User Not Found",
+        })
+      };
+  
     const newFriend = await Friend.create({
       name: guestName,
       animal: animal,
@@ -56,28 +62,42 @@ module.exports.handler = async (event, context) => {
       },
       { new: true }
     ).exec();
-
-    if (!updatedUser)
-      return context.done(null, { status: 400, message: "Bad Request" });
-
+    
+    if(!updatedUser)
+      return {
+        statusCode: "400",
+        body: JSON.stringify({
+          "message": "Bad Request",
+        })
+      };
+    
     const descData = await Description.findOne({ result: `${first}${now}` });
-
-    return context.done(null, {
-      status: 201,
-      message: "Response Save Success",
-      data: {
-        hostId: String(hostId),
-        hostName: hostUser.name,
-        guestName: guestName,
-        animal: animal,
-        emoji: emoji,
-        color: color,
-        title: descData.title,
-        first: descData.first,
-        now: descData.now,
-      },
-    });
+  
+    return {
+      statusCode: "201",
+      body: JSON.stringify({
+        message: "Response Save Success",
+        data: {
+          "hostId": String(hostId),
+          "hostName": hostUser.name,
+          "guestName" : guestName,
+          "animal": animal,
+          "emoji": emoji,
+          "color": color,
+          "title": descData.title,
+          "first": descData.first,
+          "now": descData.now,
+        }
+      })
+    };
+    
   } catch (err) {
-    return context.fail(err);
+    return {
+      statusCode: "400",
+      body: JSON.stringify({
+        "message": "Bad Request",
+        "error" : err
+        })
+    };
   }
 };

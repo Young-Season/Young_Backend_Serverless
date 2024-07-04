@@ -2,7 +2,6 @@
 
 const mongoose = require("mongoose");
 const axios = require("axios");
-const qs = require("qs");
 const jwt = require("jsonwebtoken");
 const encryptUtil = require("./utils/encryption");
 const User = require("./models/user");
@@ -26,9 +25,15 @@ module.exports.handler = async (event, context) => {
   connectDB();
 
   try {
-    const code = event.body.code;
+    const body = JSON.parse(event.body);
+    const code = body.code;
     if (typeof code == "undefined" || code == "" || code == null)
-      return context.done(null, { status: 400, message: "Bad Request" });
+      return {
+        statusCode: "400",
+        body: JSON.stringify({
+          "message": "Bad Request",
+        })
+      };
 
     const kakaoToken = await axios({
       method: "POST",
@@ -36,13 +41,13 @@ module.exports.handler = async (event, context) => {
       headers: {
         "content-type": "application/x-www-form-urlencoded",
       },
-      data: qs.stringify({
+      data: {
         grant_type: "authorization_code",
         client_id: KAKAO_API_KEY,
         redirect_uri: KAKAO_REDIRECT_URI,
         code: code,
         client_secret: KAKAO_CLIENT_SECRET,
-      }),
+      },
     });
 
     const kakaoUserInfo = await axios({
@@ -67,22 +72,34 @@ module.exports.handler = async (event, context) => {
           expiresIn: "30m",
         }
       );
+      
+      return {
+        statusCode: "200",
+        body: JSON.stringify({
+          "message": "Login Success",
+          "id": userId,
+          "hostName": user.name,
+          "token": token,
+        })
+      };
+      
+    } 
+    
+    return {
+      statusCode: "404",
+      body: JSON.stringify({
+        "message": "Signup Required",
+        "id": userId,
+      })
+    };
 
-      return context.done(null, {
-        status: 200,
-        message: "Login Success",
-        id: userId,
-        hostName: user.name,
-        token: token,
-      });
-    } else {
-      return context.done(null, {
-        status: 404,
-        message: "Signup Required",
-        id: userId,
-      });
-    }
   } catch (err) {
-    return context.fail(err);
+    console.log(err);
+    return {
+      statusCode: "400",
+      body: JSON.stringify({
+        "message": "Bad Request",
+      })
+    };
   }
 };

@@ -23,7 +23,12 @@ module.exports.handler = async (event, context) => {
   const userId = event.requestContext.authorizer.lambda.userId;
   
   if(hostId != userId)
-    return context.done(null, { "status" : 403, "message" : "User Not Allowed" });
+    return {
+      statusCode: "403",
+      body: JSON.stringify({
+        "message": "User Not Allowed",
+      })
+    };
   
   connectDB();
   
@@ -31,15 +36,17 @@ module.exports.handler = async (event, context) => {
     const hostUser = await User.findOne({ id: hostId }).populate("friends");
     const total = hostUser.animal.reduce((sum, val) => sum + val, 0);
 
-    if (total === 0) {
-      return context.done(null, { 
-        "status" : 204, 
-        "message" : "No Result Yet", 
-        "data":{
-          "image" : "000"
-        }
-      });
-	  }
+    if (total === 0) 
+      return {
+        statusCode: "204",
+        body: JSON.stringify({
+          "message" : "No Result Yet", 
+          "data":{
+            "image" : "000"
+          }
+        })
+      };
+	  
 	  
 	  let result = {};
     arrName.forEach((name, idx) => {
@@ -60,15 +67,22 @@ module.exports.handler = async (event, context) => {
       result[name] = [firstObj, secondObj];
     });
 
-    return context.done(null, {
-      "status": 200,
-      "message": "Stats Result",
-      "data" : result
-    });
-	  
+	  return {
+      statusCode: "200",
+      body: JSON.stringify({
+        "message": "Stats Result",
+        "data" : result
+        })
+    };
 	  
   } catch(err){
-    return context.failed(err);
+    console.log(err);
+    return {
+      statusCode: "400",
+      body: JSON.stringify({
+        "message": "Bad Request",
+      })
+    };
   }
   
 };
