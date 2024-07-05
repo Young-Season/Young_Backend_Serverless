@@ -2,6 +2,7 @@
 
 const mongoose = require("mongoose");
 const axios = require("axios");
+const qs = require("qs");
 const jwt = require("jsonwebtoken");
 const encryptUtil = require("./utils/encryption");
 const User = require("./models/user");
@@ -27,6 +28,7 @@ module.exports.handler = async (event, context) => {
   try {
     const body = JSON.parse(event.body);
     const code = body.code;
+    console.log(code);
     if (typeof code == "undefined" || code == "" || code == null)
       return {
         statusCode: "400",
@@ -41,15 +43,15 @@ module.exports.handler = async (event, context) => {
       headers: {
         "content-type": "application/x-www-form-urlencoded",
       },
-      data: {
+      data: qs.stringify({
         grant_type: "authorization_code",
         client_id: KAKAO_API_KEY,
         redirect_uri: KAKAO_REDIRECT_URI,
         code: code,
         client_secret: KAKAO_CLIENT_SECRET,
-      },
+      })
     });
-
+    
     const kakaoUserInfo = await axios({
       method: "GET",
       url: "https://kapi.kakao.com/v2/user/me",
@@ -58,7 +60,7 @@ module.exports.handler = async (event, context) => {
       },
     });
 
-    const userId = encryptUtil.encrypt(kakaoUserInfo.data.id); // 카카오계정 식별자 암호화
+    const userId = await encryptUtil(kakaoUserInfo.data.id); // 카카오계정 식별자 암호화
 
     const user = await User.findOne({ id: userId }).populate("friends");
     if (user) {
