@@ -16,7 +16,6 @@ const connectDB = () => {
 };
 
 module.exports.handler = async (event, context) => {
-  
   const hostId = event.queryStringParameters.hostId;
   const guestName = event.queryStringParameters.guestName;
   if(typeof hostId == "undefined" || hostId == "" || hostId == null || typeof guestName == "undefined" || guestName == "" || guestName == null)
