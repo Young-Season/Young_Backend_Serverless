@@ -2,7 +2,7 @@ name: deploy to lambda - host-result-for-guests
 on:
     push:
       paths:
-        - "host-result-for-guests.js"
+        - "host-result-for-guests.js", "models/**"
       branches: [main]
 
 jobs:
@@ -20,4 +20,4 @@ jobs:
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_region: ${{ secrets.AWS_REGION }}
           function_name: host-result-for-guests
-          source: index.js
+          source: host-result-for-guests.js, models

@@ -2,7 +2,7 @@ name: deploy to lambda - get-host-name
 on:
     push:
       paths:
-        - "get-host-name.js"
+        - "get-host-name.js", "models/**"
       branches: [main]
 
 jobs:
@@ -20,4 +20,4 @@ jobs:
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_region: ${{ secrets.AWS_REGION }}
           function_name: get-host-name
-          source: index.js
+          source: get-host-name.js, models

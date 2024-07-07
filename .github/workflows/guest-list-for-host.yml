@@ -2,7 +2,7 @@ name: deploy to lambda - guest-list-for-host
 on:
     push:
       paths:
-        - "guest-list-for-host.js"
+        - "guest-list-for-host.js", "models/**"
       branches: [main]
 
 jobs:
@@ -20,4 +20,4 @@ jobs:
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_region: ${{ secrets.AWS_REGION }}
           function_name: guest-list-for-host
-          source: index.js
+          source: guest-list-for-host.js, models

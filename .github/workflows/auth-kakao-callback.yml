@@ -2,7 +2,7 @@ name: deploy to lambda - auth-kakao-callback
 on:
     push:
       paths:
-        - "auth-kakao-callback.js"
+        - "auth-kakao-callback.js", "models/**", "utils/**"
       branches: [main]
 
 jobs:
@@ -20,4 +20,4 @@ jobs:
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_region: ${{ secrets.AWS_REGION }}
           function_name: auth-kakao-callback
-          source: index.js
+          source: auth-kakao-callback.js, models, utils
