@@ -21,3 +21,5 @@ Node.js 백엔드 ➡️ Lambda 기반 서버리스 백엔드 <br/>
 - [[서버리스] AWS Lambda 백엔드 아키텍처 비교하기](https://velog.io/@hnnynh/%EC%84%9C%EB%B2%84%EB%A6%AC%EC%8A%A4-AWS-Lambda-%EB%B0%B1%EC%97%94%EB%93%9C-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%EB%B9%84%EA%B5%90%ED%95%98%EA%B8%B0)
 - [[서버리스] API Gateway Authorizer](https://velog.io/@hnnynh/API-Gateway-Authorizer)
 - [[서버리스] 백엔드 Lambda 서버리스 마이그레이션 방법](https://velog.io/@hnnynh/%EB%B0%B1%EC%97%94%EB%93%9C-Lambda-%EC%84%9C%EB%B2%84%EB%A6%AC%EC%8A%A4-%EB%A7%88%EC%9D%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EC%85%98-%EB%B0%A9%EB%B2%95)
+- [[서버리스] Node.js 백엔드 AWS 서버리스 마이그레이션 회고](https://velog.io/@hnnynh/%EC%84%9C%EB%B2%84%EB%A6%AC%EC%8A%A4-%EB%A7%88%EC%9D%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EC%85%98-%ED%9A%8C%EA%B3%A0)
+- [[서버리스] Github Action으로 Lambda 업데이트하기](https://velog.io/@hnnynh/%EC%84%9C%EB%B2%84%EB%A6%AC%EC%8A%A4-Github-Action%EC%9C%BC%EB%A1%9C-Lambda-%EC%97%85%EB%8D%B0%EC%9D%B4%ED%8A%B8%ED%95%98%EA%B8%B0)
