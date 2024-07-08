@@ -19,7 +19,7 @@ module.exports.handler = async (event, context) => {
 
   const hostId = event.pathParameters.hostId;
   const userId = event.requestContext.authorizer.lambda.userId;
-  let page = event.queryStringParameters.page;
+  const page = event.queryStringParameters.page ? parseInt(event.queryStringParameters.page, 10) : 1;
   const pageSize = 6;
   
   if(hostId != userId)
@@ -43,11 +43,6 @@ module.exports.handler = async (event, context) => {
         })
       };
     }
-    
-    if (typeof page == "undefined" || page == "" || page == null)
-      page = 1;
-    else
-      page = parseInt(page);
     
     const guestData = hostUser.friends.map((friend) => ({
       id: friend._id,

@@ -51,7 +51,7 @@ module.exports.handler = async (event, context) => {
         client_secret: KAKAO_CLIENT_SECRET,
       })
     });
-    
+
     const kakaoUserInfo = await axios({
       method: "GET",
       url: "https://kapi.kakao.com/v2/user/me",
