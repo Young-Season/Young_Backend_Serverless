@@ -18,8 +18,9 @@ const connectDB = () => {
 };
 
 module.exports.handler = async (event, context) => {
-  const userId = event.body.id;
-  const userName = event.body.name;
+  const { id: userId, name: userName } = JSON.parse(event.body);
+  console.log(userId);
+  console.log(userName);
   if(typeof userId == "undefined" || userId == "" || userId == null || typeof userName == "undefined" || userName == "" || userName == null)
     return {
       statusCode: "400",
