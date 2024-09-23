@@ -17,6 +17,11 @@ Node.js 백엔드 ➡️ Lambda 기반 서버리스 백엔드 <br/>
 
 ![image](https://github.com/Young-Season/Young_Backend_Serverless/assets/83288181/f67ffedb-6038-4cfc-b4a6-4d32629b04b2)
 
+## Trouble Shooting
+- [] 개별 API 호출 시간 개선
+      - Before: API 전부 분리
+        - 초기 호출 평균 약 3.8초
+        - 재호출 평균 약 0.3초
 
 ## Articles @hnnynh
 - [[서버리스] AWS Lambda 백엔드 아키텍처 비교하기](https://velog.io/@hnnynh/%EC%84%9C%EB%B2%84%EB%A6%AC%EC%8A%A4-AWS-Lambda-%EB%B0%B1%EC%97%94%EB%93%9C-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%EB%B9%84%EA%B5%90%ED%95%98%EA%B8%B0)
